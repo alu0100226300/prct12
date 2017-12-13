@@ -1,0 +1,6 @@
+task :default => :tu
+
+desc "Pruebas unitarias de la clase Cocinero"
+task :tu do
+   ruby "test/tc_cocinero.rb"
+end
