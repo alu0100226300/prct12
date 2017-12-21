@@ -14,8 +14,14 @@ class TestCocinero < Test::Unit::TestCase
         end
         t2 = Thread.new do
            loop do
-               @cocinero1.degustar_uno()
+               comer = @cocinero1.degustar_uno()
                sleep 3
+               if comer==true
+                  puts "El plato es delicioso" 
+               else
+                  puts "Lo siento no hay platos que comer"
+               end
+               puts "El probador de platos espera con paciencia"
            end
         end
         t1.join

@@ -15,6 +15,14 @@ class Cocinero
      @lock.synchronize{
         @anos = @anos + 1
         @experiencia = @experiencia + 3
+        case @experiencia
+              when 1..10 then puts "El cocinero está siendo entrenado"
+              when 11..21 then @platos = @platos + 1
+              when 22..32 then @platos = @platos + 2
+              when 33..43 then @platos = @platos + 3
+        else
+              @platos = @platos + 4
+        end
      }
   end
 
@@ -23,21 +31,14 @@ class Cocinero
         @contador = @contador - 1
         if @contador == 0
            puts "El cocinero se ha retirado"
-           puts "En total ha cocinado #{@platos} platos"
+           puts "En total ha cocinado #{@platos} platos en #{@anos} años"
 	   exit
         else
-           case @experiencia
-              when 1..10 then puts "El cocinero está siendo entrenado"
-              when 11..21 then @platos = @platos + 1
-              when 22..32 then @platos = @platos + 2
-              when 33..43 then @platos = @platos + 3
+           if @experiencia >= 10
+	      return true
            else
-              @platos = @platos + 4
+              return false
            end
-           if @experiencia >= 10 
-              puts "El plato es delicioso"
-           end
-           puts "El catador está a la espera..."
         end
      }
   end
