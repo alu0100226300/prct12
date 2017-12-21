@@ -6,35 +6,42 @@ class Cocinero
     # atributos
     @experiencia = 0
     @contador = contador
-    @anos = 0
+    @total_platos = 0
     @platos = 0
     @lock = Mutex.new
   end
 
   def uno_mas()
      @lock.synchronize{
-        @anos = @anos + 1
-        @experiencia = @experiencia + 3
+        @experiencia += 1
         case @experiencia
-              when 1..10 then puts "El cocinero está siendo entrenado"
-              when 11..21 then @platos = @platos + 1
-              when 22..32 then @platos = @platos + 2
-              when 33..43 then @platos = @platos + 3
+              when 1..2 then puts "El cocinero está siendo entrenado"
+              when 3..5 then 
+                 @platos += 1
+                 @total_platos += 1
+              when 6..9 then 
+                 @total_platos += 2
+                 @platos += 2
+              when 10..14 then 
+                 @platos += 3
+                 @total_platos += 3
         else
-              @platos = @platos + 4
+              @platos += 4
+              @total_platos += 4
         end
      }
   end
 
   def degustar_uno()
      @lock.synchronize{
-        @contador = @contador - 1
+        @contador -= 1
         if @contador == 0
            puts "El cocinero se ha retirado"
-           puts "En total ha cocinado #{@platos} platos en #{@anos} años"
+           puts "En total ha cocinado #{@total_platos} platos"
 	   exit
         else
-           if @experiencia >= 10
+           if @platos > 0
+              @platos -= 1
 	      return true
            else
               return false
@@ -47,8 +54,8 @@ class Cocinero
      return @experiencia
   end
 
-  def get_anos()
-     return @anos
+  def get_total_platos()
+     return @total_platos
   end
   
   def get_contador()
@@ -60,7 +67,8 @@ class Cocinero
 	s = "\n"
 	s << "\nExperiencia: #{@experiencia}"
 	s << "\nContador: #{@contador}"
-        s << "\nAños: #{@anos}"
+	s << "\nPlatos que quedan: #{@platos}"
+        s << "\nPlatos en total: #{@total_platos}"
 	s << "\n"
 	s
   end
